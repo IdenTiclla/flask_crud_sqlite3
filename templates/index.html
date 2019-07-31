@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Tasks app
+{% endblock %}
+
+{% block main %}
+<main class="container p-4">
+    <h1 class="display-4 text-center title mt-4">Tasks App</h1>
+
+    <div class="row">
+        <div class="col-md-4 offset-md-4 my-auto">
+            <div class="card">
+                <div class="card-header">
+                    <form action="/create_task" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="content" placeholder="Task" autofocus class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Save</button>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for task in tasks %}
+                            {% if task.done == True %}
+                                <span class="done">{{ task.content }}</span>
+                            {% else %}
+                                <span>{{ task.content }}</span>
+                            {% endif%}
+                            <a href="/done/{{task.id}}" class="btn btn-success">Done</a>
+                            <a href="/delete/{{task.id}}" class="btn btn-danger">Delete</a>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
